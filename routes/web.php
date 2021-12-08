@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Models\Product;
+use \App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,18 @@ use \App\Models\Product;
 */
 
 Route::get('/', function () {
+    $data = [
+        'name'=>'tablets',
+    ];
+    Category::create($data);
+
+    $category = new Category();
+    $category->name = "laptops";
+    $category->status = false;
+    $category->save();
+
     //$product = Product::where('status',true)->get();
-    $product = Product::where('status',true)->where('price','>',1000)->get();
+   // $product = Product::where('status',true)->where('price','>',1000)->get();
     /*$data = [
         'name'=>'mouse',
         'price'=>1000,
@@ -32,9 +43,15 @@ Route::get('/', function () {
    // dd($product);
     return view('main');
 });
+
 Route::get('store', function () {
     return view('store');
 });
+
+Route::get('product', function () {
+    return view('product');
+});
+
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Auth::routes();
