@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Product;
 use \App\Models\Category;
@@ -44,13 +46,15 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::get('show-form',[FormController::class,'showForm'])->name('showForm');
+Route::post('show-form',[FormController::class,'postForm'])->name('postForm');
+
+
 Route::get('store', function () {
     return view('store');
 });
 
-Route::get('product', function () {
-    return view('product');
-});
+Route::get('product/{id?}', [ProductController::class,'index'])->name('show-product');
 
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
