@@ -50,11 +50,8 @@ Route::get('show-form',[FormController::class,'showForm'])->name('showForm');
 Route::post('show-form',[FormController::class,'postForm'])->name('postForm');
 
 
-Route::get('store', function () {
-    return view('store');
-});
-
 Route::get('product/{id?}', [ProductController::class,'index'])->name('show-product');
+Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
