@@ -46,6 +46,13 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::resources([
+    'brand'=> \App\Http\Controllers\AdminControllers\BrandController::class,
+    'category'=>\App\Http\Controllers\AdminControllers\CategoryController::class,
+    'product'=>\App\Http\Controllers\AdminControllers\ProductController::class,
+]);
+
+
 Route::get('show-form',[FormController::class,'showForm'])->name('showForm');
 Route::post('show-form',[FormController::class,'postForm'])->name('postForm');
 
