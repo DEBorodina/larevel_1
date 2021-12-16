@@ -34,7 +34,7 @@
                     <div class="aside">
                         <h3 class="aside-title">Categories</h3>
                         <div class="checkbox-filter">
-                            @for($i=0;$i<=6;$i++)
+                            @for($i=0;$i<=7;$i++)
                             <div class="input-checkbox">
                                 <input type="checkbox" id="category-{{$i}}">
                                 <label for="category-{{$i}}">
@@ -201,7 +201,7 @@
                     <!-- store bottom filter -->
                     <div class="store-filter clearfix">
                         <span class="store-qty">Showing {{$products->perPage()*$products->currentPage()}} products</span>
-                        {!! $products->render() !!}
+                        {!! $products->links('') !!}
                         <ul class="store-pagination">
                             <li class="active">1</li>
                             <li><a href="#">2</a></li>
