@@ -11,37 +11,38 @@
                         <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
                     </div>
                 </div>
+
                 <div class="panel-body">
                     <table class="table">
+                        <a href="{{route('admin.brand.create')}}" class="btn btn-sm btn-success">Create</a>
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>id</th>
+                            <th>Brand name</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($brands as $brand)
                         <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{$loop->iteration + (($brands->currentPage() - 1) * $brands->perPage())}}</td>
+                            <td>{{$brand->id}}</td>
+                            <td>{{$brand->name}}</td>
+                            <td>
+                                <a href="{{route('admin.brand.show',['brand'=>$brand->id])}}">show</a>
+                                <a href="{{route('admin.brand.edit',['brand'=>$brand])}}">edit</a>
+                                <form action="{{route('admin.brand.destroy',compact('brand'))}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-">Delete</button>
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
+                    {{$brands->links()}}
                 </div>
             </div>
         </div>
