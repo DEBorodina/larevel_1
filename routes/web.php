@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProductController;
+use App\Http\Middleware\CheckAuth;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Product;
 use \App\Models\Category;
@@ -48,7 +49,7 @@ Route::get('/', function () {
 
 
 
-Route::prefix('admin')->name("admin.")->group(function (){
+Route::middleware(['auth','login'])->prefix('admin')->name("admin.")->group(function (){
     Route::resources([
         'brand'=> \App\Http\Controllers\AdminControllers\BrandController::class,
         'category'=>\App\Http\Controllers\AdminControllers\CategoryController::class,
@@ -59,11 +60,25 @@ Route::prefix('admin')->name("admin.")->group(function (){
 Route::get('show-form',[FormController::class,'showForm'])->name('showForm');
 Route::post('show-form',[FormController::class,'postForm'])->name('postForm');
 
+Route::get('cart',[\App\Http\Controllers\CartController::class,'index'])->name('cart');
+Route::post('add-to-cart',[\App\Http\Controllers\CartController::class,'addToCart'])->name('addToCart');
 
 Route::get('product/{id?}', [ProductController::class,'index'])->name('show-product');
 Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
+
+Route::get('test',function(){
+    $brand = \App\Models\Brand::find(1);
+    $product = \App\Models\Product::find(1);
+    \App\Models\Image::create([
+        'url'=>'go',
+        'imageable'=>$product->id,
+        'imageable_type'=>Product::class,
+    ]);
+
+    dump($product->brand);
+});
 
 Auth::routes();
 

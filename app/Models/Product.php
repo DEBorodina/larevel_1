@@ -31,7 +31,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
-    protected $fillable = ['name','price','content','img','status'];
+    protected $fillable = ['name','price','content','img','status','brand_id'];
+
+    public function brand(){
+        return $this->belongsTo(Brand::class)->withDefault([
+            'name'=>'no_name',
+            'logo'=>'pic',
+        ]);
+    }
+
+    public function image(){
+        return $this->morphOne(Image::class,'imageable');
+    }
+
     //protected $guarded = ['id'];
     use HasFactory;
 }

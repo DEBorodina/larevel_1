@@ -3,9 +3,9 @@
     @dump($errors)
     <form action="{{route('admin.brand.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="text" name="name">
+        <input type="text" name="name" value="{{old('name')}}">
         <br>
-        <input type="file" name="logo">
+        <input type="file" name="logo" value="{{old('logo')}}">
         <br>
         <textarea name=description" cols="60" rows="5"></textarea>
         <br>

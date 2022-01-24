@@ -1,10 +1,10 @@
 @extends('layouts.admin_layout')
-@section('content')
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <p class="text-danger">{{ $error }}</p>
-        @endforeach
-    @endif
+@section('content')    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <p class="text-danger">{{ $error }}</p>
+    @endforeach
+@endif
+
     <form action="{{route('admin.category.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" name="name">

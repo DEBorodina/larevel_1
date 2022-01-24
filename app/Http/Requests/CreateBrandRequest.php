@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateBrandRequest extends FormRequest
 {
@@ -23,15 +24,24 @@ class CreateBrandRequest extends FormRequest
      */
     public function rules()
     {
+        $id = ((is_object($this->brand)) ? $this->brand->id : $this->brand)??null;
         return [
-            'name'=>'email|min:8',
+            'name'=>[
+                'min:3',
+                'required',
+                'max:150',
+                //'unique:brands:name,'.$id,
+             //   Rule::unique('brands','name')->ignore($id),
+            ],
         ];
+
     }
 
     public function messages()
     {
         return [
            'name.min'=> 'Сообщение об ошибке',
+            'name.unique' => 'Такое имя уже занято',
         ];
     }
 }
