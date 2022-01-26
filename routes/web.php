@@ -69,8 +69,7 @@ Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Route::get('test',function(){
-    \Illuminate\Support\Facades\Mail::to('gjtjgt@mail.ru')
-        ->cc('oneuser@mail.ru')
+    \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
         ->send(new \App\Mail\BingoEmail(100));
 //    $balance = rand(0,100);
 //    dump($balance);

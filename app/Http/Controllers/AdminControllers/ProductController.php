@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -38,14 +39,13 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
         $file = $request->file('img');
         $data = $request->all();
         if($file!=null){
-            $name = $file->getFilename();
-            $file->storeAs('products_images',$name.'.jpg','public');
-            $image = '/storage/products_images/'.$name.'.jpg';
+            $file->storeAs('products_images',time().'.'.$file->getClientOriginalExtension(),'public');
+            $image = '/storage/products_images/'.time().'.'.$file->getClientOriginalExtension();
             $data['img'] = $image;
         }
         Product::create($data);
@@ -81,14 +81,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(CreateProductRequest $request, Product $product)
     {
         $file = $request->file('img');
         $data = $request->all();
         if($file!=null) {
-            $name = $file->getFilename();
-            $file->storeAs('products_images', $name . '.jpg', 'public');
-            $image = '/storage/products_images/' . $name . '.jpg';
+            $file->storeAs('products_images',time().'.'.$file->getClientOriginalExtension(),'public');
+            $image = '/storage/products_images/'.time().'.'.$file->getClientOriginalExtension();
             $data['img'] = $image;
             File::delete(public_path(Product::find($product->id)->img));
         }

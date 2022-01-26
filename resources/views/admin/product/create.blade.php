@@ -1,5 +1,6 @@
 @extends('layouts.admin_layout')
-@section('content')    @if ($errors->any())
+@section('content')
+    @if ($errors->any())
     @foreach ($errors->all() as $error)
         <p class="text-danger">{{ $error }}</p>
     @endforeach

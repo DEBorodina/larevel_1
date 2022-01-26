@@ -29,7 +29,7 @@ class BingoEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('test@mail.ru','gjjgjg')
+        return $this->from('test@mail.ru','Daria')
             ->view('mails.bingo')
             ->with([
                'message2'=>'Message text',
