@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     protected $fillable = ['name','logo','description','status','creation_year'];
+
+    protected $casts = [
+        'creation_year'=>'integer',
+    ];
+
     public function products(){
         return $this->hasMany(Product::class);
     }
@@ -16,6 +21,14 @@ class Brand extends Model
     }
     public function oldestProduct(){
         return $this->hasOne(Product::class)->oldestOfMany();
+    }
+
+    public function getNameAttribute(){
+       // return 'go';
+    }
+
+    public function setNameAttribute($value){
+        dump(222);
     }
     use HasFactory;
 }

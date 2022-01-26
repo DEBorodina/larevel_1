@@ -69,15 +69,25 @@ Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Route::get('test',function(){
-    $brand = \App\Models\Brand::find(1);
-    $product = \App\Models\Product::find(1);
+    \Illuminate\Support\Facades\Mail::to('gjtjgt@mail.ru')
+        ->cc('oneuser@mail.ru')
+        ->send(new \App\Mail\BingoEmail(100));
+//    $balance = rand(0,100);
+//    dump($balance);
+//    if($balance<50){
+//        \App\Events\BingoEvent::dispatch($balance);
+//    }
+//    $brand = \App\Models\Brand::first();
+//    dump($brand->name=122);
+//    dump($brand->name);
+  /*  $product = \App\Models\Product::find(1);
     \App\Models\Image::create([
         'url'=>'go',
         'imageable'=>$product->id,
         'imageable_type'=>Product::class,
     ]);
 
-    dump($product->brand);
+    dump($product->brand);*/
 });
 
 Auth::routes();
