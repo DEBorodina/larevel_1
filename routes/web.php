@@ -63,6 +63,9 @@ Route::post('show-form',[FormController::class,'postForm'])->name('postForm');
 Route::get('cart',[\App\Http\Controllers\CartController::class,'index'])->name('cart');
 Route::post('add-to-cart',[\App\Http\Controllers\CartController::class,'addToCart'])->name('addToCart');
 
+Route::get('wish-list',[\App\Http\Controllers\WishListController::class,'index'])->name('wishList');
+Route::post('add-to-wish-list',[\App\Http\Controllers\WishListController::class,'addToWishList'])->name('addToWishList');
+
 Route::get('product/{id?}', [ProductController::class,'index'])->name('show-product');
 Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 
