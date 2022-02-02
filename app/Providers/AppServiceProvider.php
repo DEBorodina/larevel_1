@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\ProductResource;
+use App\Services\ProductService;
+use App\Services\ProductServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        ProductResource::withoutWrapping();
+        $this->app->bind(ProductServiceInterface::class,ProductService::class);
     }
 }

@@ -23,10 +23,6 @@ class Brand extends Model
         return $this->hasOne(Product::class)->oldestOfMany();
     }
 
-    public function getNameAttribute(){
-       // return 'go';
-    }
-
     public function setNameAttribute($value){
         dump(222);
     }

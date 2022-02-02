@@ -72,8 +72,24 @@ Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Route::get('test',function(){
-    \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
-        ->send(new \App\Mail\BingoEmail(100));
+
+    $response = \Illuminate\Support\Facades\Http::get('api.openweathermap.org/data/2.5/weather',[
+        'zip'=>'220066,BY',
+        'appid'=>'30261c32d639bd3eadda764908c12206',
+        'lang'=>'ru',
+    ]);
+    dump($response->object());
+//    $response  = \Illuminate\Support\Facades\Http::get('https://www.nbrb.by/api/exrates');
+//    dump($response->json());
+
+//    $client = new \GuzzleHttp\Client();
+//    $response = $client->get('https://www.nbrb.by/api/exrates');
+//    $cur = json_decode($response->getBody()->getContents(),true);
+//    dump($cur);
+
+//    \App\Jobs\BingoJob::dispatch();
+//    dump('go');
+
 //    $balance = rand(0,100);
 //    dump($balance);
 //    if($balance<50){
