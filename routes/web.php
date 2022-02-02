@@ -71,14 +71,17 @@ Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
-Route::get('test',function(){
-
-    $response = \Illuminate\Support\Facades\Http::get('api.openweathermap.org/data/2.5/weather',[
+Route::get('test',function() {
+        \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
+            ->send(new \App\Mail\BingoEmail(100));
+   /* $response = \Illuminate\Support\Facades\Http::get('api.openweathermap.org/data/2.5/weather',[
         'zip'=>'220066,BY',
         'appid'=>'30261c32d639bd3eadda764908c12206',
         'lang'=>'ru',
     ]);
     dump($response->object());
+   */
+
 //    $response  = \Illuminate\Support\Facades\Http::get('https://www.nbrb.by/api/exrates');
 //    dump($response->json());
 

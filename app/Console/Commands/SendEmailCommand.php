@@ -14,7 +14,7 @@ class SendEmailCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:test {name*} {--Q|queue=default}}';
+    protected $signature = 'command:email {user_id} {message} {--l}';
 
     /**
      * The console command description.
@@ -40,10 +40,13 @@ class SendEmailCommand extends Command
      */
     public function handle()
     {
-        $this->table(
-            ['name','price'],
-            Product::all(['name','price'])->toArray()
-        );
+        $user  = User::find($this->argument('user_id'));
+        if(!$user){
+            $this->error('unknown user');
+        }else{
+            \Illuminate\Support\Facades\Mail::to($user->email)
+                ->send(new \App\Mail\BingoEmail($this->argument('message'),$user->name,$this->option('l')));
+        }
         return Command::SUCCESS;
     }
 }

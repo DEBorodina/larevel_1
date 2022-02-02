@@ -1,2 +1,3 @@
-<h1>Hello bingo {{$balance}}</h1>
-<h2>{{$message2}}</h2>
+<h1>Hello, {{$name}}</h1>
+{!!$withLine?('<hr>'):('')!!}
+<h2>{{$text}}</h2>

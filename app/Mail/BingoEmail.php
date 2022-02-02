@@ -11,15 +11,20 @@ class BingoEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $balance;
+    public $text;
+    public $name;
+    public $withLine;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($balance)
+    public function __construct($text,$name,$l)
     {
-        $this->balance = $balance;
+        $this->withLine = $l;
+        $this->text = $text;
+        $this->name = $name;
     }
 
     /**
@@ -29,11 +34,8 @@ class BingoEmail extends Mailable
      */
     public function build()
     {
+
         return $this->from('test@mail.ru','Daria')
-            ->view('mails.bingo')
-            ->with([
-               'message2'=>'Message text',
-            ])
-            ->attach('https://www.meme-arsenal.com/memes/ada7e47465776032ac1071addc158c03.jpg');
+            ->view('mails.bingo');
     }
 }
