@@ -72,8 +72,17 @@ Route::get('catalog',[ProductController::class,'catalog'])->name('catalog');
 Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Route::get('test',function() {
-        \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
-            ->send(new \App\Mail\BingoEmail(100));
+
+    $data = [
+        'text'=>'<b>hi!</b>',
+        'parse_mode'=>'HTML',
+    ];
+    Http::post('https://api.telegram.org/bot2086928339:AAHPfsDKrMI0tjLhJ7rkYQSf0WhNYFOz9eA/sendMessage?chat_id=@ololo_prod_limited',$data);
+
+      /*  \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
+            ->send(new \App\Mail\BingoEmail(100));*/
+
+
    /* $response = \Illuminate\Support\Facades\Http::get('api.openweathermap.org/data/2.5/weather',[
         'zip'=>'220066,BY',
         'appid'=>'30261c32d639bd3eadda764908c12206',
