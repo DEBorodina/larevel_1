@@ -3,6 +3,7 @@
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CheckAuth;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Product;
 use \App\Models\Category;
@@ -19,6 +20,10 @@ use \App\Models\Category;
 */
 
 Route::get('/', function () {
+
+    $user = User::first();
+    $user->assignRole('admin');
+
     $data = [
         'name'=>'tablets',
     ];
@@ -49,7 +54,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware(['auth','login'])->prefix('admin')->name("admin.")->group(function (){
+Route::middleware(['auth','login','role:admin'])->prefix('admin')->name("admin.")->group(function (){
     Route::resources([
         'brand'=> \App\Http\Controllers\AdminControllers\BrandController::class,
         'category'=>\App\Http\Controllers\AdminControllers\CategoryController::class,
@@ -73,11 +78,22 @@ Route::get('hello', [App\Http\Controllers\SiteController::class,'index']);
 
 Route::get('test',function() {
 
-    $data = [
+    \Spatie\Permission\Models\Role::create([
+        'name'=>'admin',
+        'guard_name'=>'name',
+    ]);
+
+    \Spatie\Permission\Models\Role::create([
+        'name'=>'user',
+        'guard_name'=>'user',
+    ]);
+
+   /* $data = [
         'text'=>'<b>hi!</b>',
         'parse_mode'=>'HTML',
     ];
-    Http::post('https://api.telegram.org/bot2086928339:AAHPfsDKrMI0tjLhJ7rkYQSf0WhNYFOz9eA/sendMessage?chat_id=@ololo_prod_limited',$data);
+    Http::post('https://api.telegram.org/bot2086928339:AAHPfsDKrMI0tjLhJ7rkYQSf0WhNYFOz9eA/sendMessage?chat_id=@ololo_prod_limited',$data);*/
+
 
       /*  \Illuminate\Support\Facades\Mail::to('vavaborodina@gmail.com')
             ->send(new \App\Mail\BingoEmail(100));*/
